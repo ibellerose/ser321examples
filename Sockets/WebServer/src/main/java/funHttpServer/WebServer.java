@@ -202,8 +202,17 @@ class WebServer {
             builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");
             builder.append("No Parameters added. Multiply takes two parameters(num1 and num2)");
-          }
-          else {
+          } else if(!request.contains("?num1=")){
+            builder.append("HTTP/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("The first parameter must be num1 and set equal to a number");
+          } else if(!request.contains("&num2=")){
+            builder.append("HTTP/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("The second parameter must be num2 and set equal to a number");
+          } else {
             Map<String, String> query_pairs = new LinkedHashMap<String, String>();
             
             query_pairs = splitQuery(request.replace("multiply?", ""));
