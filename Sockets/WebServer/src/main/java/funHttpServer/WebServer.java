@@ -201,7 +201,7 @@ class WebServer {
             // extract path parameters
             query_pairs = splitQuery(request.replace("multiply?", ""));
 
-          if(query_pairs == NULL){
+          if(query_pairs == null){
             builder.append("HTTP/1.1 400 Bad Request\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");
