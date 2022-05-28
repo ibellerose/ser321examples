@@ -196,12 +196,11 @@ class WebServer {
         } else if (request.contains("multiply?")) {
           // This multiplies two numbers, there is NO error handling, so when
           // wrong data is given this just crashes
-
-          Map<String, String> query_pairs = new LinkedHashMap<String, String>();
-          // extract path parameters
-          query_pairs = splitQuery(request.replace("multiply?", ""));
-
           try{
+            Map<String, String> query_pairs = new LinkedHashMap<String, String>();
+            // extract path parameters
+            query_pairs = splitQuery(request.replace("multiply?", ""));
+
             // extract required fields from parameters
             Integer num1 = Integer.parseInt(query_pairs.get("num1"));
             Integer num2 = Integer.parseInt(query_pairs.get("num2"));
