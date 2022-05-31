@@ -424,25 +424,52 @@ class WebServer {
           }
 
         } else if (request.contains("gcf?")) {
-          Map<String, String> query_pairs = new LinkedHashMap<String, String>();
-          query_pairs = splitQuery(request.replace("gcf?", ""));
-          Integer num1 = Integer.parseInt(query_pairs.get("num1"));
-          Integer num2 = Integer.parseInt(query_pairs.get("num2"));
 
-          while (num1 != num2){
-            if(num1 > num2){
-              num1 = num1 - num2;
-            }
-            else{
-              num2 = num2 - num1;
+          if(request.length() == 4){
+            builder.append("HTTP/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("No Parameters added. GCF takes two parameters(num1 and num2)");
+          } 
+          else if(!request.contains("?num1=")){
+            builder.append("HTTP/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("The first parameter name must be 'num1'");
+          } 
+          else if(!request.contains("&num2=")){
+            builder.append("HTTP/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("The second parameter name must be 'num2'");
+          } 
+          else{
+            Map<String, String> query_pairs = new LinkedHashMap<String, String>();
+            query_pairs = splitQuery(request.replace("gcf?", ""));
+            try{
+              Integer num1 = Integer.parseInt(query_pairs.get("num1"));
+              Integer num2 = Integer.parseInt(query_pairs.get("num2"));
+
+              while (num1 != num2){
+                if(num1 > num2){
+                  num1 = num1 - num2;
+                }
+                else{
+                  num2 = num2 - num1;
+                }
+              }
+            
+              builder.append("HTTP/1.1 200 OK\n");
+              builder.append("Content-Type: text/html; charset=utf-8\n");
+              builder.append("\n");
+              builder.append("The Greatest Common Factor is: " + num2);
+            } catch(Exception e){
+              builder.append("HTTP/1.1 400 Bad Request\n");
+              builder.append("Content-Type: text/html; charset=utf-8\n");
+              builder.append("\n");
+              builder.append("num1 and num2 must both be set to integers");
             }
           }
-        
-          builder.append("HTTP/1.1 200 OK\n");
-          builder.append("Content-Type: text/html; charset=utf-8\n");
-          builder.append("\n");
-          builder.append("The Greatest Common Factor is:" + num2);
-
         } else {
           // if the request is not recognized at all
 
