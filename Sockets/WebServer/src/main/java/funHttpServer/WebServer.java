@@ -280,6 +280,7 @@ class WebServer {
                 indChar = json.charAt(i);
                 i++;
               }
+              System.out.println(varName);
               if(varName.equals("full_name") && depthCount == 1){
                 i += 2;
                 while(indChar == ','){
