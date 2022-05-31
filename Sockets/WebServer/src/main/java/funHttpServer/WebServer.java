@@ -283,7 +283,7 @@ class WebServer {
               if(varName.equals("full_name") && depthcount == 1){
                 i += 2;
                 while(indChar != ","){
-                  varvalue += indChar;
+                  varValue += indChar;
                   indChar = json.charAt(i);
                   i++;
                 }
