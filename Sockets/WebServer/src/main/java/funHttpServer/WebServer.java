@@ -354,7 +354,7 @@ class WebServer {
             
           query_pairs = splitQuery(request.replace("pyramid?", ""));
 
-          //String block = query_pairs.get("block");
+          String block = query_pairs.get("block");
           //Integer rows = Integer.parseInt(query_pairs.get("rows"));
           int rows = 5;
 
@@ -365,8 +365,8 @@ class WebServer {
               System.out.print("   ");
             }
             while(k != 2 * i - 1){
-              pyramid += "block" + " ";
-              System.out.print("block" + " ");
+              pyramid += "b" + " ";
+              System.out.print("b" + " ");
               k++;
             }
 
