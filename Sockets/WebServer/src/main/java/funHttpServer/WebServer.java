@@ -368,7 +368,7 @@ class WebServer {
           else{
             String pyramid = "";
             int k = 0;
-            Boolean inInt = true;
+            Boolean isInt = true;
             Integer rows = 0;
 
             Map<String, String> query_pairs = new LinkedHashMap<String, String>();
