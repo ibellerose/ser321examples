@@ -355,10 +355,11 @@ class WebServer {
           query_pairs = splitQuery(request.replace("multiply?", ""));
 
           String block = query_pairs.get("block");
-          Integer size = Integer.parseInt(query_pairs.get("size"));
+          Integer rows = Integer.parseInt(query_pairs.get("rows"));
 
-          for(int i = 1; i <= size; i++){
-            for(int j = 1; j<= size - i; j++){
+          for(int i = 1; i <= rows; ++i){
+            k = 0;
+            for(int j = 1; j<= rows - i; ++j){
               pyramid += "   ";
               System.out.print("   ");
             }
