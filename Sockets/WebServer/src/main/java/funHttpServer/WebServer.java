@@ -282,7 +282,7 @@ class WebServer {
                 indChar = json.charAt(i);
               }
               if(varName.equals("full_name") && depthCount == 1){
-                i += 2;
+                i++;
                 varValue = "";
                 while(indChar != ','){
                   varValue += indChar;
@@ -292,7 +292,7 @@ class WebServer {
                 output += varName + ": " + varValue + "\n";
               }
               else if(varName.equals("id") && depthCount == 1){
-                i += 2;
+                i++;
                 varValue = "";
                 while(indChar != ','){
                   varValue += indChar;
@@ -302,7 +302,7 @@ class WebServer {
                 output += varName + ": " + varValue + "\n";
               }
               else if(varName.equals("login") && depthCount == 2){
-                i += 2;
+                i++;
                 varValue = "";
                 while(indChar != ','){
                   varValue += indChar;
