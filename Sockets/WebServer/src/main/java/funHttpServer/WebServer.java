@@ -266,23 +266,23 @@ class WebServer {
 
           for(int i = 0; i < json.length(); i++){
             char indChar = json.charAt(i);
-            if(Character.compare(indChar, "{")){
+            if(Character.compare(indChar, '{')){
               depthCount++;
             }
-            else if(Character.compare(indChar, "}")){
+            else if(Character.compare(indChar, '}')){
               depthCount--;
             }
-            else if(Character.compare(indChar, "\"")){
+            else if(Character.compare(indChar, '\"')){
               i++;
               indChar = json.charAt(i);
-              while(Character.compare(indChar, "\"")){
+              while(Character.compare(indChar, '\"')){
                 varName += indChar;
                 indChar = json.charAt(i);
                 i++;
               }
-              if(varName.equals("full_name") && depthcount == 1){
+              if(varName.equals("full_name") && depthCount == 1){
                 i += 2;
-                while(Character.compare(indChar, ",")){
+                while(Character.compare(indChar, ',')){
                   varValue += indChar;
                   indChar = json.charAt(i);
                   i++;
