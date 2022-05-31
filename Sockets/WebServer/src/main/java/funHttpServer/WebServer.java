@@ -357,7 +357,7 @@ class WebServer {
           String block = query_pairs.get("block");
           Integer size = Integer.parseInt(query_pairs.get("size"));
 
-          for(int i = 1; i < size; i++){
+          for(int i = 1; i <= size; i++){
             for(int j = 1; j<= size - i; j++){
               pyramid += "   ";
               System.out.print("   ");
