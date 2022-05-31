@@ -352,7 +352,7 @@ class WebServer {
 
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
             
-          query_pairs = splitQuery(request.replace("multiply?", ""));
+          query_pairs = splitQuery(request.replace("pyramid?", ""));
 
           String block = query_pairs.get("block");
           Integer rows = Integer.parseInt(query_pairs.get("rows"));
@@ -365,7 +365,7 @@ class WebServer {
             }
             while(k != 2 * i - 1){
               pyramid += "block" + " ";
-              System.out.print("block" + "  ");
+              System.out.print("block" + " ");
               k++;
             }
 
