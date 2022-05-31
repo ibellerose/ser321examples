@@ -347,33 +347,73 @@ class WebServer {
 
         } else if (request.contains("pyramid?")) {
 
-          String pyramid = "";
-          int k = 0;
+          if(request.length() == 8){
+            builder.append("HTTP/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("No Parameters added. Pyramid takes two parameters(block and size)");
+          } 
+          else if(!request.contains("?block=")){
+            builder.append("HTTP/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("The first parameter name must be 'block'");
+          } 
+          else if(!request.contains("?rows=")){
+            builder.append("HTTP/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("The second parameter name must be 'rows'");
+          } 
+          else{
+            String pyramid = "";
+            int k = 0;
+            Boolean inInt = true;
 
-          Map<String, String> query_pairs = new LinkedHashMap<String, String>();
-            
-          query_pairs = splitQuery(request.replace("pyramid?", ""));
+            Map<String, String> query_pairs = new LinkedHashMap<String, String>();
+              
+            query_pairs = splitQuery(request.replace("pyramid?", ""));
 
-          String block = query_pairs.get("block");
-          Integer rows = Integer.parseInt(query_pairs.get("rows"));
+            String block = query_pairs.get("block");
 
-          for(int i = 1; i <= rows; ++i){
-            k = 0;
-            for(int j = 1; j<= rows - i; ++j){
-              pyramid += "&nbsp&nbsp";
+            if(block.length() != 1){
+              builder.append("HTTP/1.1 400 Bad Request\n");
+              builder.append("Content-Type: text/html; charset=utf-8\n");
+              builder.append("\n");
+              builder.append("The second parameter name must be 'rows'");
             }
-            while(k != 2 * i - 1){
-              pyramid += block + "&nbsp";
-              k++;
-            }
+            else{
+              try{
+                Integer rows = Integer.parseInt(query_pairs.get("rows"));
+              }
+              catch(Exception e){
+                isInt = false;
+                builder.append("HTTP/1.1 400 Bad Request\n");
+                builder.append("Content-Type: text/html; charset=utf-8\n");
+                builder.append("\n");
+                builder.append("'rows' must be set to an integer less than 100");
+              }
+              if(isInt){
+                for(int i = 1; i <= rows; ++i){
+                  k = 0;
+                  for(int j = 1; j<= rows - i; ++j){
+                    pyramid += "&nbsp&nbsp";
+                  }
+                  while(k != 2 * i - 1){
+                    pyramid += block + "&nbsp";
+                    k++;
+                  }
 
-            pyramid += "<br/>";
+                  pyramid += "<br/>";
+                }
+
+                builder.append("HTTP/1.1 200 OK\n");
+                builder.append("Content-Type: text/html; charset=utf-8\n");
+                builder.append("\n");
+                builder.append(pyramid);
+              }
+            }
           }
-
-          builder.append("HTTP/1.1 200 OK\n");
-          builder.append("Content-Type: text/html; charset=utf-8\n");
-          builder.append("\n");
-          builder.append(pyramid);
 
         } else {
           // if the request is not recognized at all
