@@ -355,7 +355,7 @@ class WebServer {
           query_pairs = splitQuery(request.replace("multiply?", ""));
 
           Char block = query_pairs.get("block");
-          Integer num2 = Integer.parseInt(query_pairs.get("size"));
+          Integer size = Integer.parseInt(query_pairs.get("size"));
 
           for(int i = 1; i < size; i++){
             for(int j = 1; j<= size - i; j++){
