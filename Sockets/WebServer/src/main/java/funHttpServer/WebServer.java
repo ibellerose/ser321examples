@@ -364,8 +364,8 @@ class WebServer {
               System.out.print("  ");
             }
             while(k != 2 * i - 1){
-              pyramid += "b" + " ";
-              System.out.print("b" + " ");
+              pyramid += block + " ";
+              System.out.print(block + " ");
               k++;
             }
 
