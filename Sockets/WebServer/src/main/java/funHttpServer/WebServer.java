@@ -369,6 +369,11 @@ class WebServer {
             pyramid += "\n";
           }
 
+          builder.append("HTTP/1.1 200 OK\n");
+          builder.append("Content-Type: text/html; charset=utf-8\n");
+          builder.append("\n");
+          builder.append(pyramid);
+
         } else {
           // if the request is not recognized at all
 
