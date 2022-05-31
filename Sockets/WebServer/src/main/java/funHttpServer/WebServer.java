@@ -360,10 +360,10 @@ class WebServer {
           for(int i = 1; i <= rows; ++i){
             k = 0;
             for(int j = 1; j<= rows - i; ++j){
-              pyramid += "&nbsp&nbsp  ";
+              pyramid += "&nbsp&nbsp";
             }
             while(k != 2 * i - 1){
-              pyramid += block + "&nbsp ";
+              pyramid += block + "&nbsp";
               k++;
             }
 
