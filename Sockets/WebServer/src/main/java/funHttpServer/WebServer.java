@@ -275,6 +275,7 @@ class WebServer {
             else if(indChar == '\"'){
               i++;
               indChar = json.charAt(i);
+              varName = "";
               while(indChar != '\"'){
                 varName += indChar;
                 i++;
@@ -283,6 +284,7 @@ class WebServer {
               System.out.println(varName);
               if(varName.equals("full_name") && depthCount == 1){
                 i += 2;
+                varValue = "";
                 while(indChar != ','){
                   varValue += indChar;
                   i++;
