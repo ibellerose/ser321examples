@@ -359,7 +359,7 @@ class WebServer {
             builder.append("\n");
             builder.append("The first parameter name must be 'block'");
           } 
-          else if(!request.contains("?rows=")){
+          else if(!request.contains("&rows=")){
             builder.append("HTTP/1.1 400 Bad Request\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");
