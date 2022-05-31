@@ -354,7 +354,7 @@ class WebServer {
             
           query_pairs = splitQuery(request.replace("multiply?", ""));
 
-          String block = String.parseString(query_pairs.get("block"));
+          String block = query_pairs.get("block");
           Integer size = Integer.parseInt(query_pairs.get("size"));
 
           for(int i = 1; i < size; i++){
@@ -363,8 +363,8 @@ class WebServer {
               System.out.print("   ");
             }
             while(k != 2 * i - 1){
-              pyramid += block + " ";
-              System.out.print(block + "  ");
+              pyramid += "block" + " ";
+              System.out.print("block" + "  ");
               k++;
             }
 
