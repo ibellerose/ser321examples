@@ -369,7 +369,7 @@ class WebServer {
               k++;
             }
 
-            pyramid += "\n";
+            pyramid += "<br/>";
             System.out.println();
           }
 
