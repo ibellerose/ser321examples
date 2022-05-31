@@ -281,7 +281,6 @@ class WebServer {
                 i++;
                 indChar = json.charAt(i);
               }
-              System.out.println(varName);
               if(varName.equals("full_name") && depthCount == 1){
                 i += 2;
                 varValue = "";
@@ -290,7 +289,27 @@ class WebServer {
                   i++;
                   indChar = json.charAt(i);
                 }
-                output += varName + ": " + varValue;
+                output += varName + ": " + varValue + "\n";
+              }
+              else if(varName.equals("id") && depthCount == 1){
+                i += 2;
+                varValue = "";
+                while(indChar != ','){
+                  varValue += indChar;
+                  i++;
+                  indChar = json.charAt(i);
+                }
+                output += varName + ": " + varValue + "\n";
+              }
+              else if(varName.equals("login") && depthCount == 2){
+                i += 2;
+                varValue = "";
+                while(indChar != ','){
+                  varValue += indChar;
+                  i++;
+                  indChar = json.charAt(i);
+                }
+                output += varName + ": " + varValue + "\n";
               }
             }
           }
