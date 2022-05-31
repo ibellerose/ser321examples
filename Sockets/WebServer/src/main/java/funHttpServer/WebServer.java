@@ -360,13 +360,16 @@ class WebServer {
           for(int i = 1; i < size; i++){
             for(int j = 1; j<= size - i; j++){
               pyramid += "   ";
+              System.out.print("   ");
             }
             while(k != 2 * i - 1){
               pyramid += block + " ";
+              System.out.print(block + "  ");
               k++;
             }
 
             pyramid += "\n";
+            System.out.println();
           }
 
           builder.append("HTTP/1.1 200 OK\n");
