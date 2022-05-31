@@ -338,12 +338,35 @@ class WebServer {
               // response based on what the assignment document asks for
             }
             else{
-              builder.append("HTTP/1.1 200 OK\n");
+              builder.append("HTTP/1.1 400 Bad Request\n");
               builder.append("Content-Type: text/html; charset=utf-8\n");
               builder.append("\n");
-              //builder.append("Check the todos mentioned in the Java source file");
               builder.append("Make sure you have input the correct path");
             }
+          }
+
+        } else if (request.contains("pyramid?")) {
+
+          String pyramid = "";
+          int k = 0;
+
+          Map<String, String> query_pairs = new LinkedHashMap<String, String>();
+            
+          query_pairs = splitQuery(request.replace("multiply?", ""));
+
+          Char block = query_pairs.get("block");
+          Integer num2 = Integer.parseInt(query_pairs.get("size"));
+
+          for(int i = 1; i < size; i++){
+            for(int j = 1; j<= size - i; j++){
+              pyramid += "   ";
+            }
+            while(k != 2 * i - 1){
+              pyramid += block + " ";
+              k++;
+            }
+
+            pyramid += "\n";
           }
 
         } else {
