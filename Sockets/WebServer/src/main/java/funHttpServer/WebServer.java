@@ -254,73 +254,88 @@ class WebServer {
           // "Owner's repo is named RepoName. Example: find RepoName's contributors" translates to
           //     "/repos/OWNERNAME/REPONAME/contributors"
 
-          Map<String, String> query_pairs = new LinkedHashMap<String, String>();
-          query_pairs = splitQuery(request.replace("github?", ""));
-          String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
-          //System.out.println(json);
+          if(request.length() == 7){
+            builder.append("HTTP/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("No query added. Add query and set equal to a path");
+          }
+          else if(!request.contains("?query=")){
+            builder.append("HTTP/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("No query added. Add query and set equal to a path");
+          }
+          else{
 
-          int depthCount = 0;
-          String varName = "";
-          String varValue = "";
-          String output = "";
+            Map<String, String> query_pairs = new LinkedHashMap<String, String>();
+            query_pairs = splitQuery(request.replace("github?", ""));
+            String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
+            //System.out.println(json);
 
-          for(int i = 0; i < json.length(); i++){
-            char indChar = json.charAt(i);
-            if(indChar == '{'){
-              depthCount++;
-            }
-            else if(indChar == '}'){
-              depthCount--;
-            }
-            else if(indChar == '\"'){
-              i++;
-              indChar = json.charAt(i);
-              varName = "";
-              while(indChar != '\"'){
-                varName += indChar;
+            int depthCount = 0;
+            String varName = "";
+            String varValue = "";
+            String output = "";
+
+            for(int i = 0; i < json.length(); i++){
+              char indChar = json.charAt(i);
+              if(indChar == '{'){
+                depthCount++;
+              }
+              else if(indChar == '}'){
+                depthCount--;
+              }
+              else if(indChar == '\"'){
                 i++;
                 indChar = json.charAt(i);
-              }
-              if(varName.equals("full_name") && depthCount == 1){
-                i++;
-                varValue = "";
-                while(indChar != ','){
-                  varValue += indChar;
+                varName = "";
+                while(indChar != '\"'){
+                  varName += indChar;
                   i++;
                   indChar = json.charAt(i);
                 }
-                output += varName + ": " + varValue + "\n";
-              }
-              else if(varName.equals("id") && depthCount == 1){
-                i++;
-                varValue = "";
-                while(indChar != ','){
-                  varValue += indChar;
+                if(varName.equals("full_name") && depthCount == 1){
                   i++;
-                  indChar = json.charAt(i);
+                  varValue = "";
+                  while(indChar != ','){
+                    varValue += indChar;
+                    i++;
+                    indChar = json.charAt(i);
+                  }
+                  output += varName + ": " + varValue + "\n";
                 }
-                output += varName + ": " + varValue + "\n";
-              }
-              else if(varName.equals("login") && depthCount == 2){
-                i++;
-                varValue = "";
-                while(indChar != ','){
-                  varValue += indChar;
+                else if(varName.equals("id") && depthCount == 1){
                   i++;
-                  indChar = json.charAt(i);
+                  varValue = "";
+                  while(indChar != ','){
+                    varValue += indChar;
+                    i++;
+                    indChar = json.charAt(i);
+                  }
+                  output += varName + ": " + varValue + "\n";
                 }
-                output += varName + ": " + varValue + "\n";
+                else if(varName.equals("login") && depthCount == 2){
+                  i++;
+                  varValue = "";
+                  while(indChar != ','){
+                    varValue += indChar;
+                    i++;
+                    indChar = json.charAt(i);
+                  }
+                  output += varName + ": " + varValue + "\n";
+                }
               }
             }
-          }
 
-          builder.append("HTTP/1.1 200 OK\n");
-          builder.append("Content-Type: text/html; charset=utf-8\n");
-          builder.append("\n");
-          //builder.append("Check the todos mentioned in the Java source file");
-          builder.append(output);
-          // TODO: Parse the JSON returned by your fetch and create an appropriate
-          // response based on what the assignment document asks for
+            builder.append("HTTP/1.1 200 OK\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            //builder.append("Check the todos mentioned in the Java source file");
+            builder.append(output);
+            // TODO: Parse the JSON returned by your fetch and create an appropriate
+            // response based on what the assignment document asks for
+          }
 
         } else {
           // if the request is not recognized at all
