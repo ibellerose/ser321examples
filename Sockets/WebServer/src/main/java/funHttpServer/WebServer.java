@@ -450,19 +450,27 @@ class WebServer {
               Integer num1 = Integer.parseInt(query_pairs.get("num1"));
               Integer num2 = Integer.parseInt(query_pairs.get("num2"));
 
-              while (num1 != num2){
-                if(num1 > num2){
-                  num1 = num1 - num2;
-                }
-                else{
-                  num2 = num2 - num1;
-                }
+              if(num1 < 0 || num2 < 0){
+                builder.append("HTTP/1.1 400 Bad Request\n");
+                builder.append("Content-Type: text/html; charset=utf-8\n");
+                builder.append("\n");
+                builder.append("num1 or num2 cannot be less than zero");
               }
-            
-              builder.append("HTTP/1.1 200 OK\n");
-              builder.append("Content-Type: text/html; charset=utf-8\n");
-              builder.append("\n");
-              builder.append("The Greatest Common Factor is: " + num2);
+              else{
+                while (num1 != num2){
+                  if(num1 > num2){
+                    num1 = num1 - num2;
+                  }
+                  else{
+                    num2 = num2 - num1;
+                  }
+                }
+              
+                builder.append("HTTP/1.1 200 OK\n");
+                builder.append("Content-Type: text/html; charset=utf-8\n");
+                builder.append("\n");
+                builder.append("The Greatest Common Factor is: " + num2);
+              }
             } catch(Exception e){
               builder.append("HTTP/1.1 400 Bad Request\n");
               builder.append("Content-Type: text/html; charset=utf-8\n");
